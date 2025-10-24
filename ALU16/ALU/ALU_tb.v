@@ -6,7 +6,7 @@ module ALU_tb;
     reg [15:0]inbus;
     wire[15:0]outbus;
     wire finish;
-    wire overflow;
+    wire negative, zero, carry, overflow;
 
     ALU alu(
         .clk(clk),
@@ -16,6 +16,9 @@ module ALU_tb;
         .inbus(inbus),
         .outbus(outbus),
         .finish(finish),
+        .negative(negative),
+        .zero(zero),
+        .carry(carry),
         .overflow(overflow)
     );
 

@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
-[*] Fri Oct 24 10:51:36 2025
+[*] Fri Oct 24 11:31:01 2025
 [*]
-[dumpfile] "/home/lica/PROCESSOR/ALU-8-Bits/ALU/dump.vcd"
-[dumpfile_mtime] "Fri Oct 24 10:41:11 2025"
-[dumpfile_size] 249990
-[savefile] "/home/lica/PROCESSOR/ALU-8-Bits/ALU/wave.gtkw"
-[timestart] 33246000
+[dumpfile] "/home/lica/PROCESSOR/ALU16/ALU/dump.vcd"
+[dumpfile_mtime] "Fri Oct 24 11:29:53 2025"
+[dumpfile_size] 254059
+[savefile] "/home/lica/PROCESSOR/ALU16/ALU/wave.gtkw"
+[timestart] 14478000
 [size] 1144 690
 [pos] -1 -1
-*-17.700001 33696000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-17.700001 15130000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] ALU_tb.
 [treeopen] ALU_tb.alu.
 [sst_width] 297
@@ -21,7 +21,14 @@ ALU_tb.clk
 ALU_tb.rst_b
 ALU_tb.start
 ALU_tb.s[1:0]
-[color] 3
+[color] 1
+ALU_tb.alu.negative
+[color] 1
+ALU_tb.alu.zero
+[color] 1
+ALU_tb.alu.carry
+@29
+[color] 1
 ALU_tb.overflow
 @24
 ALU_tb.inbus[15:0]
@@ -37,7 +44,7 @@ ALU_tb.alu.a_out[16:0]
 ALU_tb.alu.q_out[15:0]
 [color] 7
 ALU_tb.alu.m_out[15:0]
-@29
+@28
 ALU_tb.alu.CU.a_16
 @800022
 [color] 2
