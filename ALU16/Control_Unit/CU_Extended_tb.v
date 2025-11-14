@@ -1,5 +1,5 @@
 `timescale 1ns/1ps
-`include "CU_Extended.v"
+`include "CU_Extended2.v"
 
 module CU_Extended_tb;
 
@@ -159,9 +159,10 @@ module CU_Extended_tb;
     /* S9  */ drive_inputs(4'b0010, 1'b0, 1'b0, 1'b1, 1'b0, 1'b0, 4'd0); step();
     /* S4  */ drive_inputs(4'b0010, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 4'd0); step();
     /* S7  */ drive_inputs(4'b0010, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 4'd15); step();
-    /* S6  */ step();
+    /* S6  */ drive_inputs(4'b0010, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 4'd0); step();
     /* S10 */ step();
-    /* S0  */ $display();
+    /* S0  */ step();
+    $display();
 
     stepn(3);
     $display("Testbench finished");
