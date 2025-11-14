@@ -1,0 +1,34 @@
+[*]
+[*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
+[*] Thu Nov 13 21:27:47 2025
+[*]
+[dumpfile] "/home/lica/PROCESSOR/ALU16/Control_Unit/dump.vcd"
+[dumpfile_mtime] "Thu Nov 13 21:22:32 2025"
+[dumpfile_size] 2790
+[savefile] "/home/lica/PROCESSOR/ALU16/Control_Unit/wave.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-17.700001 308000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 297
+[signals_width] 110
+[sst_expanded] 1
+[sst_vpaned_height] 157
+@28
+CU_Extended_tb.clk
+CU_Extended_tb.rst_b
+@22
+CU_Extended_tb.s[3:0]
+@28
+CU_Extended_tb.start
+CU_Extended_tb.q0
+CU_Extended_tb.q_1
+CU_Extended_tb.a_16
+CU_Extended_tb.cmp_cnt_m4
+@22
+CU_Extended_tb.cnt[3:0]
+CU_Extended_tb.c[18:0]
+@29
+CU_Extended_tb.finish
+[pattern_trace] 1
+[pattern_trace] 0

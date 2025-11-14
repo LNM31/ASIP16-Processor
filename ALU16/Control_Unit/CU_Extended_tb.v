@@ -18,7 +18,7 @@ module CU_Extended_tb;
   wire [18:0] c;
   wire        finish;
 
-  // DUT
+  // dut
   Control_Unit dut (
     .clk(clk),
     .rst_b(rst_b),
@@ -92,16 +92,28 @@ module CU_Extended_tb;
     end
   endtask
 
+  function [4:0] dec5(
+    input f4, f3, f2, f1, f0
+  );
+    begin
+      dec5 = {f4, f3, f2, f1, f0};
+    end
+  endfunction
+
   // Wave dumps and live monitor
   initial begin
     $dumpfile("dump.vcd");
     $dumpvars(0, CU_Extended_tb);
-    $display("Time  rst s  start q0 q_1 a_16 cmp cnt | c[18:0] finish");
+    $display("Time    rst sel  start q0 q_1 a_16 cmp cnt st | st_next c[18:0]            finish");
   end
 
+  wire [4:0] state_bits     = {dut.f4.q, dut.f3.q, dut.f2.q, dut.f1.q, dut.f0.q};
+  wire [4:0] next_state_bits= {dut.f4.d, dut.f3.d, dut.f2.d, dut.f1.d, dut.f0.d};
+
   initial begin
-    $monitor("%5t  %b  %4b   %b    %b  %b   %b    %b  %2d | %019b   %b",
-             $time, rst_b, s, start, q0, q_1, a_16, cmp_cnt_m4, cnt, c, finish);
+    $monitor("%7t  %b  %4b   %b    %b  %b   %b    %b  %2d %3d | %3d     %019b   %b",
+             $time, rst_b, s, start, q0, q_1, a_16, cmp_cnt_m4, cnt,
+             state_bits, next_state_bits, c, finish);
   end
 
   // Main stimulus
@@ -112,26 +124,19 @@ module CU_Extended_tb;
     // Reset
     do_reset(2);
 
-    // Scenario 1: pulse start with s=0000, cnt=0..3
+    // ADD          sel   start q0    q_1   a_16  ccm4  cnt
     drive_inputs(4'b0000, 1'b1, 1'b0, 1'b0, 1'b0, 1'b0, 4'd0); step();
-    drive_inputs(4'b0000, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 4'd1); step();
-    drive_inputs(4'b0000, 1'b0, 1'b1, 1'b0, 1'b0, 1'b0, 4'd2); step();
-    drive_inputs(4'b0000, 1'b0, 1'b0, 1'b1, 1'b0, 1'b0, 4'd3); step();
+    drive_inputs(4'b0000, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 4'd0); step();
+    stepn(7);
+    $display();
+    
+    // SUB          sel   start q0    q_1   a_16  ccm4  cnt
+    drive_inputs(4'b0001, 1'b1, 1'b0, 1'b0, 1'b0, 1'b0, 4'd0); step();
+    drive_inputs(4'b0001, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 4'd0); step();
+    stepn(7);
+    $display();
 
-    // Example check (replace X with expected when you know them)
-    // check_outputs(19'bX, 1'bX, "scenario1_end");
-
-    // Scenario 2: exercise cmp_cnt_m4 and a_16 paths
-    drive_inputs(4'b0010, 1'b1, 1'b0, 1'b0, 1'b1, 1'b0, 4'd15); step();
-    drive_inputs(4'b0010, 1'b0, 1'b0, 1'b0, 1'b1, 1'b1, 4'd15); stepn(3);
-
-    // Scenario 3: toggle q0/q_1 to hit (q0 ~^ q_1) conditions
-    drive_inputs(4'b0101, 1'b0, 1'b0, 1'b1, 1'b0, 1'b0, 4'd7); step();
-    drive_inputs(4'b0101, 1'b0, 1'b1, 1'b0, 1'b0, 1'b0, 4'd7); step();
-    drive_inputs(4'b0101, 1'b0, 1'b1, 1'b1, 1'b0, 1'b0, 4'd7); step();
-
-    // Finish
-    stepn(5);
+    stepn(3);
     $display("Testbench finished");
     $finish;
   end
