@@ -9,3 +9,4 @@
 /home/lika/Desktop/PROCESSOR/ALU16/Registers/counter.v
 /home/lika/Desktop/PROCESSOR/ALU16/Control_Unit/CU_Extended2.v
 /home/lika/Desktop/PROCESSOR/ALU16/ALU/ALU.v
+/home/lika/Desktop/PROCESSOR/Memory/memory_512x16.v
