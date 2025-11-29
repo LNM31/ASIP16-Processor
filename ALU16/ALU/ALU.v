@@ -23,6 +23,7 @@ module ALU (
     wire [18:0] c;
     wire [16:0] z;
     wire overfl;
+    wire eq;
 
     A regA(
         .clk(clk),
@@ -71,6 +72,14 @@ module ALU (
         .overflow(overfl)
     );
 
+    comp4 comparator(
+        .a(cnt_out),
+        .b(m_out[3:0]),
+        .lt(),
+        .eq(eq),
+        .gt()
+    );
+
     counter COUNT(
         .clk(clk),
         .rst_b(rst_b),
@@ -86,6 +95,7 @@ module ALU (
         .q0(q_out[0]),
         .q_1(q_1out),
         .a_16(a_out[16]),
+        .cmp_cnt_m4(eq),
         .cnt(cnt_out),
         .c(c),
         .finish(finish)
