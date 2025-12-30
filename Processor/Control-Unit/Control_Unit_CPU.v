@@ -3,14 +3,16 @@ module Control_Unit_CPU(
   input  [5:0]  op,         // opcode from IR(Instruction Register)
   input         ra,         // RA - Register Address from IR
   input         start,      // start from user
+  input         inp_ack,  
+  input         out_ack,  
   input         ack_alu,    // finish from ALU
   output        finish,     
-  output [15:0] c           // control signals for proccesor
+  output [24:0] c           // control signals for proccesor
 );
   
   // Implementare OneHot
 
-  wire [25:0] qout;
+  wire [36:0] qout;
  
   // 1. HLT
   ffd_OneHot #(.reset_val(1'b1)) S0 (.clk(clk), .rst_b(rst_b), .en(1'b1), .d(
@@ -32,7 +34,11 @@ module Control_Unit_CPU(
     qout[16] |
     qout[17] |
     qout[23] |
-    qout[25] 
+    qout[25] |
+    qout[28] |
+    qout[31] |
+    qout[34] |
+    (qout[36] & out_ack) 
   ), .q(qout[2]));
 
   ffd_OneHot S3   (.clk(clk), .rst_b(rst_b), .en(1'b1), .d(
@@ -144,6 +150,60 @@ module Control_Unit_CPU(
   ffd_OneHot S25  (.clk(clk), .rst_b(rst_b), .en(1'b1), .d(
     qout[24]
   ), .q(qout[25]));
+
+  // 8. PSH {Acc, Reg, PC}
+  ffd_OneHot S26  (.clk(clk), .rst_b(rst_b), .en(1'b1), .d(
+    qout[3] & 
+    (~op[5] & ~op[4] & ~op[3] & op[2] & op[1] & op[0]) // 000111
+  ), .q(qout[26]));
+
+  ffd_OneHot S27  (.clk(clk), .rst_b(rst_b), .en(1'b1), .d(
+    qout[26]
+  ), .q(qout[27]));
+
+  ffd_OneHot S28  (.clk(clk), .rst_b(rst_b), .en(1'b1), .d(
+    qout[27]
+  ), .q(qout[28]));
+  
+  // 9. POP {Acc, Reg, PC}
+  ffd_OneHot S29  (.clk(clk), .rst_b(rst_b), .en(1'b1), .d(
+    qout[3] & 
+    (~op[5] & ~op[4] & op[3] & ~op[2] & ~op[1] & ~op[0]) // 001000
+  ), .q(qout[29]));
+
+  ffd_OneHot S30  (.clk(clk), .rst_b(rst_b), .en(1'b1), .d(
+    qout[29]
+  ), .q(qout[30]));
+
+  ffd_OneHot S31  (.clk(clk), .rst_b(rst_b), .en(1'b1), .d(
+    qout[30]
+  ), .q(qout[31]));
+
+  // 10. IN Reg
+  ffd_OneHot S32  (.clk(clk), .rst_b(rst_b), .en(1'b1), .d(
+    qout[3] & 
+    (~op[5] & ~op[4] & op[3] & ~op[2] & ~op[1] & op[0]) // 001001
+  ), .q(qout[32]));
+
+  ffd_OneHot S33  (.clk(clk), .rst_b(rst_b), .en(1'b1), .d(
+    qout[32] |
+    (qout[33] & ~inp_ack)
+  ), .q(qout[33]));
+
+  ffd_OneHot S34  (.clk(clk), .rst_b(rst_b), .en(1'b1), .d(
+    qout[33] & inp_ack
+  ), .q(qout[34]));
+
+  // 11. OUT Reg
+  ffd_OneHot S35  (.clk(clk), .rst_b(rst_b), .en(1'b1), .d(
+    qout[3] & 
+    (~op[5] & ~op[4] & op[3] & ~op[2] & op[1] & ~op[0]) // 001010
+  ), .q(qout[35]));
+
+  ffd_OneHot S36  (.clk(clk), .rst_b(rst_b), .en(1'b1), .d(
+    qout[35] |
+    (qout[36] & ~out_ack)
+  ), .q(qout[36]));
   
   assign finish = qout[0];
   assign c[0] = qout[1];
@@ -162,6 +222,15 @@ module Control_Unit_CPU(
   assign c[13] = qout[17];
   assign c[14] = qout[22];
   assign c[15] = qout[23] | qout[25];
-  
+  assign c[16] = qout[26];
+  assign c[17] = qout[27];
+  assign c[18] = qout[28];
+  assign c[19] = qout[29];
+  assign c[20] = qout[30];
+  assign c[21] = qout[31];
+  assign c[22] = qout[32];
+  assign c[23] = qout[34];
+  assign c[24] = qout[35];
+  // signals to be continued
 
 endmodule

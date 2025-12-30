@@ -1,84 +1,30 @@
 [*]
 [*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
-[*] Tue Dec 30 12:11:39 2025
+[*] Tue Dec 30 19:36:26 2025
 [*]
 [dumpfile] "/home/lica/PROCESSOR/SoC/soc_tb2.vcd"
-[dumpfile_mtime] "Tue Dec 30 11:51:44 2025"
-[dumpfile_size] 101727
+[dumpfile_mtime] "Tue Dec 30 19:33:32 2025"
+[dumpfile_size] 153853
 [savefile] "/home/lica/PROCESSOR/SoC/wave2.gtkw"
-[timestart] 2845500
-[size] 800 905
+[timestart] 0
+[size] 990 905
 [pos] -1 -1
-*-17.100000 2977400 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-17.100000 7058600 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] SoC_tb2.
 [treeopen] SoC_tb2.uut.
-[sst_width] 43
-[signals_width] 142
-[sst_expanded] 0
+[sst_width] 297
+[signals_width] 150
+[sst_expanded] 1
 [sst_vpaned_height] 263
 @28
 SoC_tb2.clk
 SoC_tb2.rst_b
 SoC_tb2.start
 SoC_tb2.finish
-@c00024
-SoC_tb2.STATE[25:0]
-@28
-(0)SoC_tb2.STATE[25:0]
-(1)SoC_tb2.STATE[25:0]
-(2)SoC_tb2.STATE[25:0]
-(3)SoC_tb2.STATE[25:0]
-(4)SoC_tb2.STATE[25:0]
-(5)SoC_tb2.STATE[25:0]
-(6)SoC_tb2.STATE[25:0]
-(7)SoC_tb2.STATE[25:0]
-(8)SoC_tb2.STATE[25:0]
-(9)SoC_tb2.STATE[25:0]
-(10)SoC_tb2.STATE[25:0]
-(11)SoC_tb2.STATE[25:0]
-(12)SoC_tb2.STATE[25:0]
-(13)SoC_tb2.STATE[25:0]
-(14)SoC_tb2.STATE[25:0]
-(15)SoC_tb2.STATE[25:0]
-(16)SoC_tb2.STATE[25:0]
-(17)SoC_tb2.STATE[25:0]
-(18)SoC_tb2.STATE[25:0]
-(19)SoC_tb2.STATE[25:0]
-(20)SoC_tb2.STATE[25:0]
-(21)SoC_tb2.STATE[25:0]
-(22)SoC_tb2.STATE[25:0]
-(23)SoC_tb2.STATE[25:0]
-(24)SoC_tb2.STATE[25:0]
-(25)SoC_tb2.STATE[25:0]
-@1401200
--group_end
-@24
-SoC_tb2.CTRL[15:0]
-SoC_tb2.SP[15:0]
 @22
-SoC_tb2.PC[15:0]
-SoC_tb2.AR[15:0]
 SoC_tb2.IR[15:0]
-SoC_tb2.AC[15:0]
-SoC_tb2.X[15:0]
-SoC_tb2.Y[15:0]
-@24
-SoC_tb2.SEU[15:0]
-@22
-SoC_tb2.ALU_OUT[15:0]
-SoC_tb2.FLAGS[3:0]
-@28
-SoC_tb2.MEM_RD
-SoC_tb2.MEM_WR
-@22
-SoC_tb2.uut.memory.din[15:0]
-SoC_tb2.uut.memory.dout[15:0]
-@28
-SoC_tb2.uut.cpu.alu.start
-@25
-SoC_tb2.uut.cpu.alu.inbus[15:0]
-@22
-SoC_tb2.ALU_OUT[15:0]
-SoC_tb2.uut.cpu.alu.s[3:0]
+SoC_tb2.AR[15:0]
+SoC_tb2.SP[15:0]
+SoC_tb2.uut.cpu.mux2s_out[15:0]
 [pattern_trace] 1
 [pattern_trace] 0

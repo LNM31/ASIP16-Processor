@@ -88,49 +88,60 @@ module SoC_tb2;
   // Funcții pentru decodare stare (One-Hot)
   // ==========================================
   
-  // Funcție care returnează numărul stării active (0-25) din one-hot
-  function [4:0] get_state_num;
-    input [25:0] qout;
+  // Funcție care returnează numărul stării active (0-36) din one-hot
+  function [5:0] get_state_num;
+    input [36:0] qout;
     integer i;
     begin
-      get_state_num = 5'd31;  // Default: invalid
-      for (i = 0; i < 26; i = i + 1) begin
-        if (qout[i]) get_state_num = i[4:0];
+      get_state_num = 6'd63;  // Default: invalid
+      for (i = 0; i < 37; i = i + 1) begin
+        if (qout[i]) get_state_num = i[5:0];
       end
     end
   endfunction
 
   // Funcție care returnează numele stării
   function [79:0] decode_state;  // 10 caractere * 8 = 80 biți
-    input [25:0] qout;
+    input [36:0] qout;
     begin
       case (get_state_num(qout))
-        5'd0:  decode_state = "S0_IDLE   ";
-        5'd1:  decode_state = "S1_START  ";
-        5'd2:  decode_state = "S2_FETCH1 ";
-        5'd3:  decode_state = "S3_DECODE ";
-        5'd4:  decode_state = "S4_LDR1   ";
-        5'd5:  decode_state = "S5_LDR_X  ";
-        5'd6:  decode_state = "S6_LDR_Y  ";
-        5'd7:  decode_state = "S7_LDA_X  ";
-        5'd8:  decode_state = "S8_LDA_Y  ";
-        5'd9:  decode_state = "S9_LDA2   ";
-        5'd10: decode_state = "S10_ALU   ";
-        5'd11: decode_state = "S11_LDA3  ";
-        5'd12: decode_state = "S12_LDA4  ";
-        5'd13: decode_state = "S13_LDAI1 ";
-        5'd14: decode_state = "S14_LDAI2 ";
-        5'd15: decode_state = "S15_STR1  ";
-        5'd16: decode_state = "S16_STR_X ";
-        5'd17: decode_state = "S17_STR_Y ";
-        5'd18: decode_state = "S18_STA_X ";
-        5'd19: decode_state = "S19_STA_Y ";
-        5'd20: decode_state = "S20_STA2  ";
-        5'd21: decode_state = "S21_ALU2  ";
-        5'd22: decode_state = "S22_STA3  ";
-        5'd23: decode_state = "S23_STA4  ";
-        5'd24: decode_state = "S24_STAI1 ";
-        5'd25: decode_state = "S25_STAI2 ";
+        6'd0:  decode_state = "S0_IDLE   ";
+        6'd1:  decode_state = "S1_START  ";
+        6'd2:  decode_state = "S2_FETCH1 ";
+        6'd3:  decode_state = "S3_DECODE ";
+        6'd4:  decode_state = "S4_LDR1   ";
+        6'd5:  decode_state = "S5_LDR_X  ";
+        6'd6:  decode_state = "S6_LDR_Y  ";
+        6'd7:  decode_state = "S7_LDA_X  ";
+        6'd8:  decode_state = "S8_LDA_Y  ";
+        6'd9:  decode_state = "S9_LDA2   ";
+        6'd10: decode_state = "S10_ALU   ";
+        6'd11: decode_state = "S11_LDA3  ";
+        6'd12: decode_state = "S12_LDA4  ";
+        6'd13: decode_state = "S13_LDAI1 ";
+        6'd14: decode_state = "S14_LDAI2 ";
+        6'd15: decode_state = "S15_STR1  ";
+        6'd16: decode_state = "S16_STR_X ";
+        6'd17: decode_state = "S17_STR_Y ";
+        6'd18: decode_state = "S18_STA_X ";
+        6'd19: decode_state = "S19_STA_Y ";
+        6'd20: decode_state = "S20_STA2  ";
+        6'd21: decode_state = "S21_ALU2  ";
+        6'd22: decode_state = "S22_STA3  ";
+        6'd23: decode_state = "S23_STA4  ";
+        6'd24: decode_state = "S24_STAI1 ";
+        6'd25: decode_state = "S25_STAI2 ";
+        6'd26: decode_state = "S26_PSH1  ";
+        6'd27: decode_state = "S27_PSH2  ";
+        6'd28: decode_state = "S28_PSH3  ";
+        6'd29: decode_state = "S29_POP1  ";
+        6'd30: decode_state = "S30_POP2  ";
+        6'd31: decode_state = "S31_POP3  ";
+        6'd32: decode_state = "S32_INP1  ";
+        6'd33: decode_state = "S33_INP2  ";
+        6'd34: decode_state = "S34_INP3  ";
+        6'd35: decode_state = "S35_OUT1  ";
+        6'd36: decode_state = "S36_OUT2  ";
         default: decode_state = "UNKNOWN   ";
       endcase
     end
@@ -138,7 +149,7 @@ module SoC_tb2;
   
   // Funcție care returnează lista semnalelor de control active
   function [159:0] decode_ctrl;  // 20 caractere
-    input [15:0] ctrl;
+    input [24:0] ctrl;
     begin
       decode_ctrl = "                    ";  // 20 spații
       if (ctrl[0])  decode_ctrl = "c0                  ";
@@ -157,6 +168,15 @@ module SoC_tb2;
       if (ctrl[13]) decode_ctrl = "c13                 ";
       if (ctrl[14]) decode_ctrl = "c14                 ";
       if (ctrl[15]) decode_ctrl = "c15                 ";
+      if (ctrl[16]) decode_ctrl = "c16                 ";
+      if (ctrl[17]) decode_ctrl = "c17                 ";
+      if (ctrl[18]) decode_ctrl = "c18                 ";
+      if (ctrl[19]) decode_ctrl = "c19                 ";
+      if (ctrl[20]) decode_ctrl = "c20                 ";
+      if (ctrl[21]) decode_ctrl = "c21                 ";
+      if (ctrl[22]) decode_ctrl = "c22                 ";
+      if (ctrl[23]) decode_ctrl = "c23                 ";
+      if (ctrl[24]) decode_ctrl = "c24                 ";
     end
   endfunction
 
@@ -175,8 +195,8 @@ module SoC_tb2;
   wire [15:0] ALU_OUT = uut.cpu.outbus_alu;
   
   // Control Unit
-  wire [25:0] STATE = uut.cpu.cu.qout;  // Stările FF (One-Hot)
-  wire [15:0] CTRL  = uut.cpu.c;                   // Semnale de control
+  wire [36:0] STATE = uut.cpu.cu.qout;  // Stările FF (One-Hot) - 37 stări (S0-S36)
+  wire [24:0] CTRL  = uut.cpu.c;        // Semnale de control - 25 semnale
   
   // Memory
   wire [15:0] MEM_ADDR = uut.address;
@@ -210,7 +230,10 @@ module SoC_tb2;
       $display("              X=%04h   Y=%04h   SP=%04h  FLAGS=%04b", X, Y, SP, FLAGS);
       $display("  [ALU]       SEU=%04h  ALU_OUT=%04h", SEU, ALU_OUT);
       $display("  [CONTROL]   STATE_NUM=%2d  CTRL_ACTIVE=%s", get_state_num(STATE), decode_ctrl(CTRL));
-      $display("              CTRL[15:0]=%d%d%d%d_%d%d%d%d_%d%d%d%d_%d%d%d%d (c15..c0)", 
+      $display("              CTRL[24:0]=%d_%d%d%d%d_%d%d%d%d_%d%d%d%d_%d%d%d%d_%d%d%d%d_%d%d%d%d (c24..c0)",
+               CTRL[24],
+               CTRL[23], CTRL[22], CTRL[21], CTRL[20],
+               CTRL[19], CTRL[18], CTRL[17], CTRL[16],
                CTRL[15], CTRL[14], CTRL[13], CTRL[12],
                CTRL[11], CTRL[10], CTRL[9], CTRL[8],
                CTRL[7], CTRL[6], CTRL[5], CTRL[4],
@@ -271,23 +294,53 @@ module SoC_tb2;
     $display("╚═══════════════════════════════════════════════════════════════════════════════╝");
     $display("\n");
 
-    // Program în memorie (din program.hex):
-    // Addr | Hex  | Instrucțiune
-    // -----|------|------------------------------------------
-    // 0000 | 0408 | LDR X, #08     -> X = Mem[08] = 1234
-    // 0001 | 0A09 | LDA ACC, Y+09  -> ACC = Mem[Y+09] = Mem[09] = 1235 (Y=0)
-    // 0002 | 140A | LDA ACC, #0A   -> ACC = Mem[0A] = 1236
-    // 0003 | 0C0B | STR X, #0B     -> Mem[0B] = X = 1234
-    // 0004 | 120C | STA Y+0C       -> Mem[Y+0C] = Mem[0C] = ACC = 1236 (Y=0)
-    // 0005 | 180D | STA #0D        -> Mem[0D] = ACC = 1236
-    // 0006 | 040D | LDR X, #0D     -> X = Mem[0D] = 1236 (valoarea scrisa anterior)
-    // 0007 | 0000 | HLT            -> Stop
-    // 0008 | 1234 | Data
-    // 0009 | 1235 | Data
-    // 000A | 1236 | Data
-    // 000B | 1237 | Data (va fi suprascris cu 1234)
-    // 000C | 1238 | Data (va fi suprascris cu 1236)
-    // 000D | 1239 | Data (va fi suprascris cu 1236)
+    // =========================================================================
+    // TEST PROGRAM - PUSH, POP, INP, OUT + instructiuni de baza
+    // =========================================================================
+    // SP initial = 512 (0x200), dupa primul PUSH devine 511 (0x1FF)
+    // =========================================================================
+    //
+    // Addr | Hex  | Instrucțiune               | Descriere
+    // -----|------|----------------------------|----------------------------------
+    // 0x00 | 0430 | LDR X, #30                 | X = Mem[30] = 0002
+    // 0x01 | 0631 | LDR Y, #31                 | Y = Mem[31] = 0003
+    // 0x02 | 1432 | LDA AC, #32                | AC = Mem[32] = 1234
+    // -----|------|----------------------------|----------------------------------
+    // 0x03 | 1C00 | PUSH AC                    | Mem[FF] = 1234, SP = FE
+    // 0x04 | 1E00 | PUSH X                     | Mem[FE] = 0002, SP = FD
+    // 0x05 | 2000 | PUSH Y                     | Mem[FD] = 0003, SP = FC
+    // -----|------|----------------------------|----------------------------------
+    // 0x06 | 0433 | LDR X, #33                 | X = AAAA (schimba valori)
+    // 0x07 | 0634 | LDR Y, #34                 | Y = BBBB
+    // 0x08 | 1435 | LDA AC, #35                | AC = CCCC
+    // -----|------|----------------------------|----------------------------------
+    // 0x09 | 2200 | POP Y                      | SP = FD, Y = Mem[FD] = 0003
+    // 0x0A | 2400 | POP X                      | SP = FE, X = Mem[FE] = 0002
+    // 0x0B | 2600 | POP AC                     | SP = FF, AC = Mem[FF] = 1234
+    // -----|------|----------------------------|----------------------------------
+    // 0x0C | 0C36 | STR X, #36                 | Mem[36] = X = 0002
+    // 0x0D | 0E37 | STR Y, #37                 | Mem[37] = Y = 0003
+    // 0x0E | 1838 | STA #38                    | Mem[38] = AC = 1234
+    // -----|------|----------------------------|----------------------------------
+    // 0x0F | 2800 | INP AC                     | AC = keyboard input
+    // 0x10 | 1839 | STA #39                    | Mem[39] = AC
+    // 0x11 | 2A00 | INP X                      | X = keyboard input
+    // 0x12 | 0C3A | STR X, #3A                 | Mem[3A] = X
+    // 0x13 | 2C00 | OUT AC                     | Display AC
+    // 0x14 | 2E00 | OUT X                      | Display X
+    // -----|------|----------------------------|----------------------------------
+    // 0x15 | 0000 | HLT                        | Stop
+    //
+    // CAZURI ACOPERITE:
+    // [x] LDR X/Y       - Load register direct
+    // [x] LDA AC        - Load accumulator direct
+    // [x] STR X/Y       - Store register direct
+    // [x] STA           - Store accumulator direct
+    // [x] PUSH AC/X/Y   - Push pe stack
+    // [x] POP AC/X/Y    - Pop de pe stack
+    // [x] INP AC/X      - Input de la tastatura
+    // [x] OUT AC/X      - Output pe display
+    // [x] HLT           - Halt
 
     // ========================================
     // RESET
@@ -313,7 +366,9 @@ module SoC_tb2;
     // Execuție - așteaptă HLT
     // ========================================
     $display("\n[TEST] Executie program - astept HLT...\n");
-    wait_finish(100);  // max 200 cicluri
+    $display("[INFO] Programul va cere 2 valori de la tastatura (INP AC si INP X).\n");
+    $display("[INFO] Introduceti valori in format hexazecimal (ex: 00AB, 1234).\n");
+    wait_finish(110);  // max 500 cicluri (timp pentru input)
 
     // ========================================
     // Verificări finale
@@ -324,22 +379,32 @@ module SoC_tb2;
     $display("╚═══════════════════════════════════════════════════════════════════════════════╝");
     $display("\n");
 
-    // Verifică registre
-    $display("[TEST] Verificare registre:\n");
-    check("X final         ", X,  16'h1236);  // LDR X, #0D -> X = Mem[0D] = 1236 (ultima instr.)
-    check("AC final        ", AC, 16'h1236);  // LDA ACC, #0A -> ACC = Mem[0A] = 1236
-    check("Y final         ", Y,  16'h0000);  // Y nu a fost modificat
+    // Nota: Nu verificam registrele X, Y, AC direct deoarece sunt suprascrise de INP
+    // Verificarea POP se face prin memoria (Mem[036], Mem[037], Mem[038]) - vezi mai jos
 
-    // Verifică memoria (după STR și STA)
-    $display("\n[TEST] Verificare memorie:\n");
-    check_mem(9'h00B, 16'h1234);  // STR X, #0B -> Mem[0B] = X = 1234
-    check_mem(9'h00C, 16'h1236);  // STA Y+0C -> Mem[0C] = ACC = 1236
-    check_mem(9'h00D, 16'h1236);  // STA #0D -> Mem[0D] = ACC = 1236
+    // Verifică memoria (rezultate PUSH/POP - stack)
+    // SP initial = 512, dupa PUSH: 511, 510, 509
+    $display("\n[TEST] Verificare STACK (valorile PUSH-uite):\n");
+    check_mem(9'h1FF, 16'h1234);  // PUSH AC primul -> Mem[1FF] = AC = 1234
+    check_mem(9'h1FE, 16'h0002);  // PUSH X al doilea -> Mem[1FE] = X = 0002
+    check_mem(9'h1FD, 16'h0003);  // PUSH Y al treilea -> Mem[1FD] = Y = 0003
+
+    // Verifică memoria (rezultate STR/STA - validare POP)
+    $display("\n[TEST] Verificare memorie (rezultate STR/STA dupa POP):\n");
+    check_mem(9'h036, 16'h0002);  // STR X, #36 -> Mem[36] = X = 0002 (dupa POP X)
+    check_mem(9'h037, 16'h0003);  // STR Y, #37 -> Mem[37] = Y = 0003 (dupa POP Y)
+    check_mem(9'h038, 16'h1234);  // STA #38 -> Mem[38] = AC = 1234 (dupa POP AC)
 
     // Date originale (nu trebuie modificate)
-    check_mem(9'h008, 16'h1234);  // Date originale
-    check_mem(9'h009, 16'h1235);  // Date originale
-    check_mem(9'h00A, 16'h1236);  // Date originale
+    $display("\n[TEST] Verificare memorie (date originale - neschimbate):\n");
+    check_mem(9'h030, 16'h0002);  // Date originale - valoare initiala X
+    check_mem(9'h031, 16'h0003);  // Date originale - valoare initiala Y
+    check_mem(9'h032, 16'h1234);  // Date originale - valoare initiala AC
+
+    // Rezultate INP (afiseaza doar valorile - depind de input utilizator)
+    $display("\n[TEST] Verificare rezultate INP (afisare - depind de input):\n");
+    $display("[INFO] Mem[39] (INP AC salvat) = %04h", uut.memory.mem[9'h039]);
+    $display("[INFO] Mem[3A] (INP X salvat)  = %04h", uut.memory.mem[9'h03A]);
 
     // ========================================
     // Sumar

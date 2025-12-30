@@ -49,7 +49,7 @@ module input_unit #(
                 DONE: begin
                     inp_ack <= 1'b1;
                     if (!inp_req) begin
-                        inp_ack <= 1'b0;
+                        //inp_ack <= 1'b0;
                         state <= IDLE;
                     end
                 end

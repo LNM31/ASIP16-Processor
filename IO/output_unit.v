@@ -45,7 +45,7 @@ module output_unit #(
                     out_ack <= 1'b1;
                     if (!out_req) begin
                         // CU a văzut ack-ul și a dezactivat req
-                        out_ack <= 1'b0;
+                        //out_ack <= 1'b0;
                         state <= IDLE;
                     end
                 end
