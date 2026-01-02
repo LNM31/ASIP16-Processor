@@ -69,11 +69,18 @@ module SoC_tb2;
   endtask
 
   // Așteaptă până finish sau timeout
+  // finish = 1 în S0 (idle), 0 cât rulează, 1 când revine în S0 (terminat)
   task automatic wait_finish(input integer max_cycles);
     integer cnt;
     begin
       cnt = 0;
-      while (cnt < max_cycles) begin
+      // Așteaptă ca finish să devină 0 (CPU a pornit)
+      while (finish == 1 && cnt < max_cycles) begin
+        step();
+        cnt = cnt + 1;
+      end
+      // Așteaptă ca finish să devină 1 (CPU s-a oprit, revine în S0)
+      while (finish == 0 && cnt < max_cycles) begin
         step();
         cnt = cnt + 1;
       end
@@ -368,7 +375,8 @@ module SoC_tb2;
     $display("\n[TEST] Executie program - astept HLT...\n");
     $display("[INFO] Programul va cere 2 valori de la tastatura (INP AC si INP X).\n");
     $display("[INFO] Introduceti valori in format hexazecimal (ex: 00AB, 1234).\n");
-    wait_finish(110);  // max 500 cicluri (timp pentru input)
+    wait_finish(500);  // max 500 cicluri (timp pentru input)
+    
 
     // ========================================
     // Verificări finale
@@ -401,10 +409,16 @@ module SoC_tb2;
     check_mem(9'h031, 16'h0003);  // Date originale - valoare initiala Y
     check_mem(9'h032, 16'h1234);  // Date originale - valoare initiala AC
 
-    // Rezultate INP (afiseaza doar valorile - depind de input utilizator)
-    $display("\n[TEST] Verificare rezultate INP (afisare - depind de input):\n");
-    $display("[INFO] Mem[39] (INP AC salvat) = %04h", uut.memory.mem[9'h039]);
-    $display("[INFO] Mem[3A] (INP X salvat)  = %04h", uut.memory.mem[9'h03A]);
+    // Verificare INP - valorile asteptate: 100 (0x0064) si 200 (0x00C8)
+    // Testul ruleaza cu: echo -e "100\n200" | vvp lic
+    $display("\n[TEST] Verificare INP (valori introduse: 100, 200):\n");
+    check_mem(9'h039, 16'h0064);  // INP AC -> STA #39 -> Mem[39] = 100 = 0x0064
+    check_mem(9'h03A, 16'h00C8);  // INP X -> STR X, #3A -> Mem[3A] = 200 = 0x00C8
+
+    // Verificare OUT - verificam ca programul a ajuns la HLT (PC = 0x0016 dupa HLT)
+    // OUT nu poate fi verificat automat (afiseaza pe consola), dar daca ajunge la HLT, OUT a rulat
+    $display("\n[TEST] Verificare OUT (implicit - programul a ajuns la HLT):\n");
+    check("PC dupa HLT     ", PC, 16'h0016);  // HLT la adresa 0x15, PC incrementat la 0x16
 
     // ========================================
     // Sumar

@@ -1,30 +1,63 @@
 [*]
 [*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
-[*] Tue Dec 30 19:36:26 2025
+[*] Fri Jan  2 13:08:21 2026
 [*]
 [dumpfile] "/home/lica/PROCESSOR/SoC/soc_tb2.vcd"
-[dumpfile_mtime] "Tue Dec 30 19:33:32 2025"
-[dumpfile_size] 153853
+[dumpfile_mtime] "Fri Jan  2 12:48:52 2026"
+[dumpfile_size] 143221
 [savefile] "/home/lica/PROCESSOR/SoC/wave2.gtkw"
-[timestart] 0
-[size] 990 905
+[timestart] 7568700
+[size] 800 905
 [pos] -1 -1
-*-17.100000 7058600 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-17.100000 7569100 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] SoC_tb2.
 [treeopen] SoC_tb2.uut.
-[sst_width] 297
+[sst_width] 43
 [signals_width] 150
-[sst_expanded] 1
+[sst_expanded] 0
 [sst_vpaned_height] 263
 @28
 SoC_tb2.clk
 SoC_tb2.rst_b
 SoC_tb2.start
 SoC_tb2.finish
-@22
-SoC_tb2.IR[15:0]
-SoC_tb2.AR[15:0]
+@24
+[color] 2
+SoC_tb2.STATE[36:0]
+[color] 2
+SoC_tb2.CTRL[24:0]
+@28
+SoC_tb2.MEM_RD
+SoC_tb2.MEM_WR
+@24
+[color] 3
 SoC_tb2.SP[15:0]
+[color] 3
+SoC_tb2.PC[15:0]
+@22
+[color] 3
+SoC_tb2.AR[15:0]
+[color] 3
+SoC_tb2.IR[15:0]
+@25
+[color] 3
+SoC_tb2.AC[15:0]
+@22
+[color] 3
+SoC_tb2.X[15:0]
+[color] 3
+SoC_tb2.Y[15:0]
 SoC_tb2.uut.cpu.mux2s_out[15:0]
+@28
+SoC_tb2.uut.input_unit.inp_req
+@24
+SoC_tb2.uut.input_unit.inp_data[15:0]
+@28
+SoC_tb2.uut.input_unit.inp_ack
+SoC_tb2.uut.output_unit.out_req
+@22
+SoC_tb2.uut.output_unit.out_data[15:0]
+@28
+SoC_tb2.uut.output_unit.out_ack
 [pattern_trace] 1
 [pattern_trace] 0

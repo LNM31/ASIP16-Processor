@@ -130,7 +130,7 @@ module CPU(
   AC ac(
     .clk(clk),
     .rst_b(rst_b),
-    .en(c[0] | c[10] | ((c[21] | c[23]) & ~ir_out[3] & ~ir_out[2] & ~ir_out[1] & ir_out[0]) | c[23]),                    // input 1 bit
+    .en(c[0] | c[10] | ((c[21] | c[23]) & ~ir_out[3] & ~ir_out[2] & ~ir_out[1] & ir_out[0])),                    // input 1 bit
     .in(mux_ac_out),                    // input [15:0]
     .out(ac_out)              // output[15:0]
   );

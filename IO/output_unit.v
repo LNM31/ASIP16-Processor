@@ -19,6 +19,7 @@ module output_unit #(
     localparam DONE = 2'b10;
     
     reg [1:0] state;
+    reg [DW-1:0] data_out;
 
     // FSM pentru afișare
     always @(posedge clk or negedge rst_b) begin
@@ -32,12 +33,13 @@ module output_unit #(
                     out_ack <= 1'b0;
                     if (out_req) begin
                         state <= WRITE;
+                        data_out <= out_data;
                     end
                 end
                 
                 WRITE: begin
                     // Afișează în terminal
-                    $display("[OUTPUT_UNIT] OUT> %0d", out_data);
+                    $display("[OUTPUT_UNIT] OUT> %0d", data_out);
                     state <= DONE;
                 end
                 
