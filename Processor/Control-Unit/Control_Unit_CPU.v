@@ -481,13 +481,13 @@ module Control_Unit_CPU(
   // 45. MOV Reg, Reg       Reg[OP1] = Reg[OP2]
   ffd_OneHot S76  (.clk(clk), .rst_b(rst_b), .en(1'b1), .d(
     qout[3] & 
-    (op[5] & ~op[4] & op[3] & op[2] & ~op[1] & ~op[0]) // 101100
+    (op[5] & ~op[4] & op[3] & op[2] & ~op[1] & op[0]) // 101101
   ), .q(qout[76]));
   
   // 46. MOV Reg, #imm       Reg[OP1] = imm[5:0]
   ffd_OneHot S77  (.clk(clk), .rst_b(rst_b), .en(1'b1), .d(
     qout[3] & 
-    (op[5] & ~op[4] & op[3] & op[2] & ~op[1] & op[0]) // 101101
+    (op[5] & ~op[4] & op[3] & op[2] & ~op[1] & ~op[0]) // 101100
   ), .q(qout[77]));
   
   

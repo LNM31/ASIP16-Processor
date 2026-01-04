@@ -61,7 +61,7 @@ module CPU(
       // sel[1] = (ir[2] & ~ir[1]) | (ir[3] & ~ir[2]) - pentru d2-d3, d6-d7
       ((c[18] | c[24]) & ((ir_out[2] & ~ir_out[1]) | (ir_out[3] & ~ir_out[2]))),
       // sel[0] = ir[0] pentru PUSH/OUT, ir[9] pentru STR
-      ir_out[9] | c[13] | ((c[52] | c[54] | c[55]) & ~ir_out[3] & ~ir_out[2] & ir_out[1] & ~ir_out[0]) | (c[53] & ~ir_out[8] & ~ir_out[7] & ~ir_out[6] & ~ir_out[5]) | ((c[26] | c[29] | c[30] | c[31] | c[32] | c[33] | c[34] | c[35] | c[36]) & ir_out[9]) | ((c[18] | c[24]) & ir_out[0])
+      ir_out[9] | c[13] | ((c[52] | c[54] | c[55]) & ~ir_out[4] & ~ir_out[3] & ~ir_out[2] & ir_out[1] & ~ir_out[0]) | (c[53] & ~ir_out[9] & ~ir_out[8] & ~ir_out[7] & ir_out[6] & ~ir_out[5]) | ((c[26] | c[29] | c[30] | c[31] | c[32] | c[33] | c[34] | c[35] | c[36]) & ir_out[9]) | ((c[18] | c[24]) & ir_out[0])
     }),
     .o(mux_registers_out)
   );
@@ -77,7 +77,7 @@ module CPU(
     .d3(pc_out),
     .sel({                              
       1'b0 | c[8] | c[27] | c[46] | c[47] | c[48] | c[49] | c[56] | ((c[26] | c[29] | c[30] | c[31] | c[32] | c[33] | c[34] | c[35] | c[36]) & ir_out[8]) | ((c[18] | c[24]) & (~ir_out[3] & ~ir_out[2] & ~ir_out[1] & ~ir_out[0])), // 1'b0 = ~c[6] | ~c[7] | ~c[12] | ~c[13]
-      1'b0 | c[15] | c[27] | c[50] | ((c[52] | c[54] | c[55]) & ~ir_out[3] & ~ir_out[2] & ~ir_out[1] & ~ir_out[0]) | (c[53] & ~ir_out[8] & ~ir_out[7] & ~ir_out[6] & ~ir_out[5]) | ((c[18] | c[24]) & (~ir_out[3] & ~ir_out[2] & ~ir_out[1]))  // 1'b0 = ~c[6] | ~c[7] | ~c[12] | ~c[13]
+      1'b0 | c[15] | c[27] | c[50] | ((c[52] | c[54] | c[55]) & ~ir_out[4] & ~ir_out[3] & ~ir_out[2] & ~ir_out[1] & ~ir_out[0]) | (c[53] & ~ir_out[9] & ~ir_out[8] & ~ir_out[7] & ~ir_out[6] & ~ir_out[5]) | ((c[18] | c[24]) & (~ir_out[3] & ~ir_out[2] & ~ir_out[1]))  // 1'b0 = ~c[6] | ~c[7] | ~c[12] | ~c[13]
     }),
     .o(mux2s_out)
   );
@@ -179,7 +179,7 @@ module CPU(
   AC ac(
     .clk(clk),
     .rst_b(rst_b),
-    .en(c[0] | c[10] | c[51] | ((c[55] | c[56]) & ~ir_out[8] & ~ir_out[7] & ~ir_out[6] & ~ir_out[5]) | ((c[21] | c[23]) & ~ir_out[3] & ~ir_out[2] & ~ir_out[1] & ir_out[0])),                    // input 1 bit
+    .en(c[0] | c[10] | c[51] | (c[56] & ~ir_out[9] & ~ir_out[8] & ~ir_out[7] & ~ir_out[6]) | (c[55] & ~ir_out[9] & ~ir_out[8] & ~ir_out[7] & ~ir_out[6] & ~ir_out[5]) | ((c[21] | c[23]) & ~ir_out[3] & ~ir_out[2] & ~ir_out[1] & ir_out[0])),                    // input 1 bit
     .in(mux_ac_out),                    // input [15:0]
     .out(ac_out)              // output[15:0]
   );
@@ -279,7 +279,7 @@ module CPU(
   X x(
     .clk(clk),
     .rst_b(rst_b),
-    .en(c[0] | c[4] | ((c[55] | c[56]) & ~ir_out[8] & ~ir_out[7] & ~ir_out[6] & ir_out[5]) | ((c[21] | c[23]) & ~ir_out[3] & ~ir_out[2] & ir_out[1] & ~ir_out[0])),                   // input 1 bit
+    .en(c[0] | c[4] | (c[56] & ~ir_out[9] & ~ir_out[8] & ~ir_out[7] & ir_out[6]) | (c[55] & ~ir_out[9] & ~ir_out[8] & ~ir_out[7] & ~ir_out[6] & ir_out[5]) | ((c[21] | c[23]) & ~ir_out[3] & ~ir_out[2] & ir_out[1] & ~ir_out[0])),                   // input 1 bit
     .in(mux_x_out),                   // input [15:0]
     .out(x_out)              // output[15:0]
   );
@@ -306,7 +306,7 @@ module CPU(
   Y y(
     .clk(clk),
     .rst_b(rst_b),
-    .en(c[0] | c[5] | ((c[55] | c[56]) & ~ir_out[8] & ~ir_out[7] & ir_out[6] & ~ir_out[5]) | ((c[21] | c[23]) & ~ir_out[3] & ~ir_out[2] & ir_out[1] & ir_out[0])),     // input 1 bit
+    .en(c[0] | c[5] | (c[56] & ~ir_out[9] & ~ir_out[8] & ir_out[7] & ~ir_out[6]) | (c[55] & ~ir_out[9] & ~ir_out[8] & ~ir_out[7] & ir_out[6] & ~ir_out[5]) | ((c[21] | c[23]) & ~ir_out[3] & ~ir_out[2] & ir_out[1] & ir_out[0])),     // input 1 bit
     .in(mux_y_out),              // input [15:0]
     .out(y_out)             // output[15:0]
   );

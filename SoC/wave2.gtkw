@@ -1,16 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
-[*] Sat Jan  3 11:19:00 2026
+[*] Sun Jan  4 12:14:47 2026
 [*]
 [dumpfile] "/home/lica/PROCESSOR/SoC/soc_tb2.vcd"
-[dumpfile_mtime] "Sat Jan  3 10:56:56 2026"
-[dumpfile_size] 163769
+[dumpfile_mtime] "Sun Jan  4 12:07:10 2026"
+[dumpfile_size] 338706
 [savefile] "/home/lica/PROCESSOR/SoC/wave2.gtkw"
-[timestart] 10634700
-[size] 800 652
+[timestart] 1329900
+[size] 800 598
 [pos] -1 -1
-*-17.100000 10774500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-[treeopen] SoC_tb2.
+*-17.100000 1506200 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] SoC_tb2.uut.
 [sst_width] 43
 [signals_width] 150
@@ -21,16 +20,14 @@ SoC_tb2.clk
 SoC_tb2.rst_b
 SoC_tb2.start
 SoC_tb2.finish
-@24
-SoC_tb2.STATE[45:0]
-SoC_tb2.CTRL[28:0]
-@28
 [color] 2
 SoC_tb2.MEM_RD
+[color] 2
 SoC_tb2.MEM_WR
-@29
 SoC_tb2.FLAGS[3:0]
 @24
+SoC_tb2.STATE[78:0]
+SoC_tb2.CTRL[57:0]
 [color] 3
 SoC_tb2.SP[15:0]
 @22

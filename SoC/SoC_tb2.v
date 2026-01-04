@@ -95,69 +95,102 @@ module SoC_tb2;
   // Funcții pentru decodare stare (One-Hot)
   // ==========================================
   
-  // Funcție care returnează numărul stării active (0-45) din one-hot
-  function [5:0] get_state_num;
-    input [45:0] qout;
+  // Funcție care returnează numărul stării active (0-78) din one-hot
+  function [6:0] get_state_num;
+    input [78:0] qout;
     integer i;
     begin
-      get_state_num = 6'd63;  // Default: invalid
-      for (i = 0; i < 46; i = i + 1) begin
-        if (qout[i]) get_state_num = i[5:0];
+      get_state_num = 7'd127;  // Default: invalid
+      for (i = 0; i < 79; i = i + 1) begin
+        if (qout[i]) get_state_num = i[6:0];
       end
     end
   endfunction
 
   // Funcție care returnează numele stării
   function [79:0] decode_state;  // 10 caractere * 8 = 80 biți
-    input [45:0] qout;
+    input [78:0] qout;
     begin
       case (get_state_num(qout))
-        6'd0:  decode_state = "S0_IDLE   ";
-        6'd1:  decode_state = "S1_START  ";
-        6'd2:  decode_state = "S2_FETCH1 ";
-        6'd3:  decode_state = "S3_DECODE ";
-        6'd4:  decode_state = "S4_LDR1   ";
-        6'd5:  decode_state = "S5_LDR_X  ";
-        6'd6:  decode_state = "S6_LDR_Y  ";
-        6'd7:  decode_state = "S7_LDA_X  ";
-        6'd8:  decode_state = "S8_LDA_Y  ";
-        6'd9:  decode_state = "S9_LDA2   ";
-        6'd10: decode_state = "S10_ALU   ";
-        6'd11: decode_state = "S11_LDA3  ";
-        6'd12: decode_state = "S12_LDA4  ";
-        6'd13: decode_state = "S13_LDAI1 ";
-        6'd14: decode_state = "S14_LDAI2 ";
-        6'd15: decode_state = "S15_STR1  ";
-        6'd16: decode_state = "S16_STR_X ";
-        6'd17: decode_state = "S17_STR_Y ";
-        6'd18: decode_state = "S18_STA_X ";
-        6'd19: decode_state = "S19_STA_Y ";
-        6'd20: decode_state = "S20_STA2  ";
-        6'd21: decode_state = "S21_ALU2  ";
-        6'd22: decode_state = "S22_STA3  ";
-        6'd23: decode_state = "S23_STA4  ";
-        6'd24: decode_state = "S24_STAI1 ";
-        6'd25: decode_state = "S25_STAI2 ";
-        6'd26: decode_state = "S26_PSH1  ";
-        6'd27: decode_state = "S27_PSH2  ";
-        6'd28: decode_state = "S28_PSH3  ";
-        6'd29: decode_state = "S29_POP1  ";
-        6'd30: decode_state = "S30_POP2  ";
-        6'd31: decode_state = "S31_POP3  ";
-        6'd32: decode_state = "S32_INP1  ";
-        6'd33: decode_state = "S33_INP2  ";
-        6'd34: decode_state = "S34_INP3  ";
-        6'd35: decode_state = "S35_OUT1  ";
-        6'd36: decode_state = "S36_OUT2  ";
-        6'd37: decode_state = "S37_BRANCH";
-        6'd38: decode_state = "S38_JMP1  ";
-        6'd39: decode_state = "S39_JMP2  ";
-        6'd40: decode_state = "S40_JMP3  ";
-        6'd41: decode_state = "S41_JMP4  ";
-        6'd42: decode_state = "S42_JMP5  ";
-        6'd43: decode_state = "S43_RET1  ";
-        6'd44: decode_state = "S44_RET2  ";
-        6'd45: decode_state = "S45_RET3  ";
+        7'd0:  decode_state = "S0_IDLE   ";
+        7'd1:  decode_state = "S1_START  ";
+        7'd2:  decode_state = "S2_FETCH1 ";
+        7'd3:  decode_state = "S3_DECODE ";
+        7'd4:  decode_state = "S4_LDR1   ";
+        7'd5:  decode_state = "S5_LDR_X  ";
+        7'd6:  decode_state = "S6_LDR_Y  ";
+        7'd7:  decode_state = "S7_LDA_X  ";
+        7'd8:  decode_state = "S8_LDA_Y  ";
+        7'd9:  decode_state = "S9_LDA2   ";
+        7'd10: decode_state = "S10_ALU   ";
+        7'd11: decode_state = "S11_LDA3  ";
+        7'd12: decode_state = "S12_LDA4  ";
+        7'd13: decode_state = "S13_LDAI1 ";
+        7'd14: decode_state = "S14_LDAI2 ";
+        7'd15: decode_state = "S15_STR1  ";
+        7'd16: decode_state = "S16_STR_X ";
+        7'd17: decode_state = "S17_STR_Y ";
+        7'd18: decode_state = "S18_STA_X ";
+        7'd19: decode_state = "S19_STA_Y ";
+        7'd20: decode_state = "S20_STA2  ";
+        7'd21: decode_state = "S21_ALU2  ";
+        7'd22: decode_state = "S22_STA3  ";
+        7'd23: decode_state = "S23_STA4  ";
+        7'd24: decode_state = "S24_STAI1 ";
+        7'd25: decode_state = "S25_STAI2 ";
+        7'd26: decode_state = "S26_PSH1  ";
+        7'd27: decode_state = "S27_PSH2  ";
+        7'd28: decode_state = "S28_PSH3  ";
+        7'd29: decode_state = "S29_POP1  ";
+        7'd30: decode_state = "S30_POP2  ";
+        7'd31: decode_state = "S31_POP3  ";
+        7'd32: decode_state = "S32_INP1  ";
+        7'd33: decode_state = "S33_INP2  ";
+        7'd34: decode_state = "S34_INP3  ";
+        7'd35: decode_state = "S35_OUT1  ";
+        7'd36: decode_state = "S36_OUT2  ";
+        7'd37: decode_state = "S37_BRANCH";
+        7'd38: decode_state = "S38_JMP1  ";
+        7'd39: decode_state = "S39_JMP2  ";
+        7'd40: decode_state = "S40_JMP3  ";
+        7'd41: decode_state = "S41_JMP4  ";
+        7'd42: decode_state = "S42_JMP5  ";
+        7'd43: decode_state = "S43_RET1  ";
+        7'd44: decode_state = "S44_RET2  ";
+        7'd45: decode_state = "S45_RET3  ";
+        7'd46: decode_state = "S46_ADD_R ";
+        7'd47: decode_state = "S47_SUB_R ";
+        7'd48: decode_state = "S48_MUL_R ";
+        7'd49: decode_state = "S49_DIV_R ";
+        7'd50: decode_state = "S50_MOD_R ";
+        7'd51: decode_state = "S51_AND_R ";
+        7'd52: decode_state = "S52_OR_R  ";
+        7'd53: decode_state = "S53_XOR_R ";
+        7'd54: decode_state = "S54_NOT_R ";
+        7'd55: decode_state = "S55_ADD_M ";
+        7'd56: decode_state = "S56_SUB_M ";
+        7'd57: decode_state = "S57_MUL_M ";
+        7'd58: decode_state = "S58_DIV_M ";
+        7'd59: decode_state = "S59_MOD_M ";
+        7'd60: decode_state = "S60_AND_M ";
+        7'd61: decode_state = "S61_OR_M  ";
+        7'd62: decode_state = "S62_XOR_M ";
+        7'd63: decode_state = "S63_NOT_M ";
+        7'd64: decode_state = "S64_LSR   ";
+        7'd65: decode_state = "S65_LSL   ";
+        7'd66: decode_state = "S66_RSR   ";
+        7'd67: decode_state = "S67_RSL   ";
+        7'd68: decode_state = "S68_ALU0  ";
+        7'd69: decode_state = "S69_ALU1  ";
+        7'd70: decode_state = "S70_ALU2  ";
+        7'd71: decode_state = "S71_CMP   ";
+        7'd72: decode_state = "S72_CMP0  ";
+        7'd73: decode_state = "S73_CMP1  ";
+        7'd74: decode_state = "S74_CMP2  ";
+        7'd75: decode_state = "S75_TST   ";
+        7'd76: decode_state = "S76_MOV_RR";
+        7'd77: decode_state = "S77_MOV_RI";
+        7'd78: decode_state = "S78_MEM   ";
         default: decode_state = "UNKNOWN   ";
       endcase
     end
@@ -165,7 +198,7 @@ module SoC_tb2;
   
   // Funcție care returnează lista semnalelor de control active
   function [159:0] decode_ctrl;  // 20 caractere
-    input [28:0] ctrl;
+    input [57:0] ctrl;
     begin
       decode_ctrl = "                    ";  // 20 spații
       if (ctrl[0])  decode_ctrl = "c0                  ";
@@ -197,6 +230,35 @@ module SoC_tb2;
       if (ctrl[26]) decode_ctrl = "c26                 ";
       if (ctrl[27]) decode_ctrl = "c27                 ";
       if (ctrl[28]) decode_ctrl = "c28                 ";
+      if (ctrl[29]) decode_ctrl = "c29                 ";
+      if (ctrl[30]) decode_ctrl = "c30                 ";
+      if (ctrl[31]) decode_ctrl = "c31                 ";
+      if (ctrl[32]) decode_ctrl = "c32                 ";
+      if (ctrl[33]) decode_ctrl = "c33                 ";
+      if (ctrl[34]) decode_ctrl = "c34                 ";
+      if (ctrl[35]) decode_ctrl = "c35                 ";
+      if (ctrl[36]) decode_ctrl = "c36                 ";
+      if (ctrl[37]) decode_ctrl = "c37                 ";
+      if (ctrl[38]) decode_ctrl = "c38                 ";
+      if (ctrl[39]) decode_ctrl = "c39                 ";
+      if (ctrl[40]) decode_ctrl = "c40                 ";
+      if (ctrl[41]) decode_ctrl = "c41                 ";
+      if (ctrl[42]) decode_ctrl = "c42                 ";
+      if (ctrl[43]) decode_ctrl = "c43                 ";
+      if (ctrl[44]) decode_ctrl = "c44                 ";
+      if (ctrl[45]) decode_ctrl = "c45                 ";
+      if (ctrl[46]) decode_ctrl = "c46                 ";
+      if (ctrl[47]) decode_ctrl = "c47                 ";
+      if (ctrl[48]) decode_ctrl = "c48                 ";
+      if (ctrl[49]) decode_ctrl = "c49                 ";
+      if (ctrl[50]) decode_ctrl = "c50                 ";
+      if (ctrl[51]) decode_ctrl = "c51                 ";
+      if (ctrl[52]) decode_ctrl = "c52                 ";
+      if (ctrl[53]) decode_ctrl = "c53                 ";
+      if (ctrl[54]) decode_ctrl = "c54                 ";
+      if (ctrl[55]) decode_ctrl = "c55                 ";
+      if (ctrl[56]) decode_ctrl = "c56                 ";
+      if (ctrl[57]) decode_ctrl = "c57                 ";
     end
   endfunction
 
@@ -215,8 +277,8 @@ module SoC_tb2;
   wire [15:0] ALU_OUT = uut.cpu.outbus_alu;
   
   // Control Unit
-  wire [45:0] STATE = uut.cpu.cu.qout;  // Stările FF (One-Hot) - 46 stări (S0-S45)
-  wire [28:0] CTRL  = uut.cpu.c;        // Semnale de control - 29 semnale
+  wire [78:0] STATE = uut.cpu.cu.qout;  // Stările FF (One-Hot) - 79 stări (S0-S78)
+  wire [57:0] CTRL  = uut.cpu.c;        // Semnale de control - 58 semnale
   
   // Memory
   wire [15:0] MEM_ADDR = uut.address;
@@ -250,14 +312,23 @@ module SoC_tb2;
       $display("              X=%04h   Y=%04h   SP=%04h  FLAGS=%04b", X, Y, SP, FLAGS);
       $display("  [ALU]       SEU=%04h  ALU_OUT=%04h", SEU, ALU_OUT);
       $display("  [CONTROL]   STATE_NUM=%2d  CTRL_ACTIVE=%s", get_state_num(STATE), decode_ctrl(CTRL));
-      $display("              CTRL[28:0]=%d%d%d%d_%d%d%d%d_%d%d%d%d_%d%d%d%d_%d%d%d%d_%d%d%d%d_%d%d%d%d%d (c28..c0)",
-               CTRL[28], CTRL[27], CTRL[26], CTRL[25],
-               CTRL[24], CTRL[23], CTRL[22], CTRL[21],
-               CTRL[20], CTRL[19], CTRL[18], CTRL[17],
-               CTRL[16], CTRL[15], CTRL[14], CTRL[13],
-               CTRL[12], CTRL[11], CTRL[10], CTRL[9],
-               CTRL[8], CTRL[7], CTRL[6], CTRL[5],
-               CTRL[4], CTRL[3], CTRL[2], CTRL[1], CTRL[0]);
+      $display("              CTRL[57:0]=%d%d_%d%d%d%d_%d%d%d%d_%d%d%d%d_%d%d%d%d_%d%d%d%d_%d%d%d%d",
+               CTRL[57], CTRL[56],
+               CTRL[55], CTRL[54], CTRL[53], CTRL[52],
+               CTRL[51], CTRL[50], CTRL[49], CTRL[48],
+               CTRL[47], CTRL[46], CTRL[45], CTRL[44],
+               CTRL[43], CTRL[42], CTRL[41], CTRL[40],
+               CTRL[39], CTRL[38], CTRL[37], CTRL[36],
+               CTRL[35], CTRL[34], CTRL[33], CTRL[32]);
+      $display("                          _%d%d%d%d_%d%d%d%d_%d%d%d%d_%d%d%d%d_%d%d%d%d_%d%d%d%d_%d%d%d%d_%d%d%d%d (c57..c0)",
+               CTRL[31], CTRL[30], CTRL[29], CTRL[28],
+               CTRL[27], CTRL[26], CTRL[25], CTRL[24],
+               CTRL[23], CTRL[22], CTRL[21], CTRL[20],
+               CTRL[19], CTRL[18], CTRL[17], CTRL[16],
+               CTRL[15], CTRL[14], CTRL[13], CTRL[12],
+               CTRL[11], CTRL[10], CTRL[9], CTRL[8],
+               CTRL[7], CTRL[6], CTRL[5], CTRL[4],
+               CTRL[3], CTRL[2], CTRL[1], CTRL[0]);
       $display("  [MEMORY]    ADDR=%04h  DIN=%04h  DOUT=%04h  RD=%b  WR=%b", 
                MEM_ADDR, MEM_DIN, MEM_DOUT, MEM_RD, MEM_WR);
     end
@@ -315,24 +386,19 @@ module SoC_tb2;
     $display("\n");
 
     // =========================================================================
-    // TEST PROGRAM - LDR, LDA, STR, STA, PUSH, POP, JMP, RET, BRA, BNE, BEQ
-    // =========================================================================
-    // SP initial = 512 (0x200), stack creste in jos
+    // TEST PROGRAM - Arithmetic, Logic, MOV, CMP (Opcodes 010100+)
     // =========================================================================
     //
     // INSTRUCTIUNI TESTATE:
-    // [x] LDR X/Y       - Load register direct
-    // [x] LDA_IMM       - Load accumulator direct
-    // [x] STR X/Y       - Store register direct
-    // [x] STA_IMM       - Store accumulator direct
-    // [x] PUSH AC/X/Y   - Push pe stack
-    // [x] POP AC/X/Y    - Pop de pe stack
-    // [x] JMP           - Jump to subroutine (PUSH PC+1, then branch)
-    // [x] RET           - Return from subroutine (POP PC)
-    // [x] BRA           - Branch always
-    // [x] BNE           - Branch if not equal (Z=0)
-    // [x] BEQ           - Branch if equal (Z=1) - test NOT taken
-    // [x] HLT           - Halt
+    // [x] MOV Reg, #Imm (101101)
+    // [x] MOV Reg, Reg (101100)
+    // [x] ADD, SUB (Reg & Imm) (010100, 010101)
+    // [x] MUL, DIV, MOD (Reg) (010110, 010111, 011000)
+    // [x] AND, OR, XOR, NOT (Reg) (011001, 011010, 011011, 011100)
+    // [x] LSR, LSL, RSR, RSL (100110, 100111, 101000, 101001)
+    // [x] CMP, TST (101010, 101011)
+    // [x] BEQ, BNE (cu flags de la CMP/TST)
+    // [x] HLT - Halt
 
     // ========================================
     // RESET
@@ -358,7 +424,7 @@ module SoC_tb2;
     // Execuție - așteaptă HLT
     // ========================================
     $display("\n[TEST] Executie program - astept HLT...\n");
-    wait_finish(300);  // max 300 cicluri
+    wait_finish(1000);  // max 1000 cicluri pentru toate instructiunile
 
 
     // ========================================
@@ -370,50 +436,64 @@ module SoC_tb2;
     $display("╚═══════════════════════════════════════════════════════════════════════════════╝");
     $display("\n");
 
-    // --- Test 1: PUSH values on stack ---
-    // Nota: Mem[1FF] este suprascris de JMP (salveaza PC+1=0x10 pentru RET)
-    $display("\n[TEST] Verificare STACK (valorile PUSH-uite + JMP return addr):\n");
-    check_mem(9'h1FF, 16'h0010);  // JMP suprascrie cu PC+1 = 0x0010 (return address)
-    check_mem(9'h1FE, 16'h000A);  // PUSH X -> Mem[1FE] = X = 0x000A (10)
-    check_mem(9'h1FD, 16'h0014);  // PUSH Y -> Mem[1FD] = Y = 0x0014 (20)
+    // --- Test 1: MOV Reg, #Imm ---
+    $display("\n[TEST] Verificare MOV Reg, #Imm:\n");
+    check_mem(9'h050, 16'h000A);  // MOV AC, #10 -> STA -> Mem[50] = 10
+    check_mem(9'h051, 16'h0014);  // MOV X, #20 -> STR -> Mem[51] = 20
+    check_mem(9'h052, 16'h001E);  // MOV Y, #30 -> STR -> Mem[52] = 30
 
-    // --- Test 2: POP results stored in memory ---
-    $display("\n[TEST] Verificare POP (rezultate stocate in memorie):\n");
-    check_mem(9'h040, 16'h000A);  // STR X, #40 -> Mem[40] = X = 0x000A (dupa POP X)
-    check_mem(9'h041, 16'h0014);  // STR Y, #41 -> Mem[41] = Y = 0x0014 (dupa POP Y)
-    check_mem(9'h042, 16'h001E);  // STA #42 -> Mem[42] = AC = 0x001E (dupa POP AC)
+    // --- Test 2: MOV Reg, Reg ---
+    $display("\n[TEST] Verificare MOV Reg, Reg:\n");
+    check_mem(9'h053, 16'h000F);  // MOV X, AC -> X = 15
+    check_mem(9'h054, 16'h000F);  // MOV Y, X -> Y = 15
 
-    // --- Test 3: JMP/RET - subroutine results ---
-    $display("\n[TEST] Verificare JMP/RET (rezultate subroutine):\n");
-    check_mem(9'h043, 16'h0055);  // STR X, #43 -> X = 0x0055 (setat in subroutine)
-    check_mem(9'h044, 16'h00AA);  // STR Y, #44 -> Y = 0x00AA (setat in subroutine)
+    // --- Test 3: ADD/SUB (Reg) ---
+    $display("\n[TEST] Verificare ADD/SUB (Reg):\n");
+    check_mem(9'h055, 16'h000F);  // ADD AC, X -> 10 + 5 = 15
+    check_mem(9'h056, 16'h000A);  // SUB AC, X -> 15 - 5 = 10
 
-    // --- Test 4: BRA - branch always ---
-    $display("\n[TEST] Verificare BRA (branch always):\n");
-    check_mem(9'h045, 16'h001E);  // STA #45 -> Mem[45] = AC (BRA a sarit peste 0x13, 0x14)
+    // --- Test 4: ADD/SUB (Imm) ---
+    $display("\n[TEST] Verificare ADD/SUB (Imm):\n");
+    check_mem(9'h057, 16'h0011);  // ADD AC, #7 -> 10 + 7 = 17
+    check_mem(9'h058, 16'h000E);  // SUB AC, #3 -> 17 - 3 = 14
 
-    // --- Test 5: BNE - branch not equal (Z=0, should be taken) ---
-    $display("\n[TEST] Verificare BNE (branch if Z=0 - TAKEN):\n");
-    check_mem(9'h046, 16'h001E);  // STA #46 -> Mem[46] = AC (BNE a sarit peste 0x17, 0x18)
+    // --- Test 5: MUL/DIV/MOD ---
+    $display("\n[TEST] Verificare MUL/DIV/MOD:\n");
+    check_mem(9'h059, 16'h000F);  // MUL AC, X -> 5 * 3 = 15
+    check_mem(9'h05A, 16'h0006);  // DIV AC, X -> 20 / 3 = 6
+    check_mem(9'h05B, 16'h0000);  // MOD AC, X -> 6 % 3 = 0
 
-    // --- Test 6: BEQ - branch equal (Z=1, should NOT be taken since Z=0) ---
-    $display("\n[TEST] Verificare BEQ (branch if Z=1 - NOT TAKEN):\n");
-    check_mem(9'h047, 16'h001E);  // STA #47 -> Mem[47] = AC (BEQ NU a fost luat)
+    // --- Test 6: AND/OR/XOR ---
+    $display("\n[TEST] Verificare AND/OR/XOR:\n");
+    check_mem(9'h05C, 16'h0007);  // AND AC, X -> 0x0F & 0x07 = 0x07
+    check_mem(9'h05D, 16'h000F);  // OR AC, X -> 0x0F | 0x07 = 0x0F
+    check_mem(9'h05E, 16'h000F);  // XOR AC, X -> 0x08 ^ 0x07 = 0x0F
 
-    // --- Test 7: Verify X and Y don't have "bad" values (branches worked) ---
-    $display("\n[TEST] Verificare ca branch-urile au sarit instructiunile corecte:\n");
-    check("X != 0xDEAD     ", (X != 16'hDEAD) ? 16'h0001 : 16'h0000, 16'h0001);
-    check("Y != 0xBEEF     ", (Y != 16'hBEEF) ? 16'h0001 : 16'h0000, 16'h0001);
+    // --- Test 7: NOT ---
+    $display("\n[TEST] Verificare NOT:\n");
+    check_mem(9'h05F, 16'hFFF8);  // NOT X -> ~0x07 = 0xFFF8
 
-    // --- Test 8: Date originale neschimbate ---
-    $display("\n[TEST] Verificare date originale (neschimbate):\n");
-    check_mem(9'h030, 16'h000A);  // valoare initiala X = 10
-    check_mem(9'h031, 16'h0014);  // valoare initiala Y = 20
-    check_mem(9'h032, 16'h001E);  // valoare initiala AC = 30
+    // --- Test 8: LSR/LSL ---
+    $display("\n[TEST] Verificare LSR/LSL:\n");
+    check_mem(9'h060, 16'h0008);  // LSR #1 -> 16 >> 1 = 8
+    check_mem(9'h061, 16'h0010);  // LSL #2 -> 4 << 2 = 16
 
-    // --- Test 9: PC after HLT ---
+    // --- Test 9: RSR/RSL ---
+    $display("\n[TEST] Verificare RSR/RSL:\n");
+    check_mem(9'h062, 16'h0050);  // RSR -> 0xA0 rotate right = 0x50
+    check_mem(9'h063, 16'h000A);  // RSL -> 0x05 rotate left = 0x0A
+
+    // --- Test 10: CMP + BEQ ---
+    $display("\n[TEST] Verificare CMP + BEQ:\n");
+    check_mem(9'h064, 16'h0001);  // CMP AC==X, BEQ taken -> marker = 1
+
+    // --- Test 11: TST + BNE ---
+    $display("\n[TEST] Verificare TST + BNE:\n");
+    check_mem(9'h065, 16'h0002);  // TST AC&X!=0, BNE taken -> marker = 2
+
+    // --- Test 12: PC after HLT ---
     $display("\n[TEST] Verificare PC dupa HLT:\n");
-    check("PC dupa HLT     ", PC, 16'h001D);  // HLT la 0x1C, PC incrementat la 0x1D
+    check("PC dupa HLT     ", PC, 16'h0047);  // HLT la 0x46, PC incrementat la 0x47
 
     // ========================================
     // Sumar
