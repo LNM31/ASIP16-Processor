@@ -39,7 +39,7 @@ module output_unit #(
                 
                 WRITE: begin
                     // Afișează în terminal
-                    $display("[OUTPUT_UNIT] OUT> %0d", data_out);
+                    $display("OUTPUT_UNIT: %0d", data_out);
                     state <= DONE;
                 end
                 

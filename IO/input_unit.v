@@ -39,10 +39,10 @@ module input_unit #(
                 
                 READ: begin
                     // Citește de la stdin (blocking)
-                    $display("[INP] Introdu o valoare (decimal): ");
+                    $display("INP: ");
                     scan_result = $fscanf(32'h8000_0000, "%d", temp_data);
                     inp_data <= temp_data;
-                    $display("[INP] Citit: %0d (0x%h)", temp_data, temp_data);
+                    // $display("[INP] Citit: %0d (0x%h)", temp_data, temp_data);
                     state <= DONE;
                 end
                 

@@ -95,13 +95,13 @@ parameter RSL = 6'b101001; // Rotate Left Acc
 parameter CMP = 6'b101010; // Compare Op1 - Op2 (Update Flags)
 parameter TST = 6'b101011; // Test Op1 & Op2 (Update Flags)
 
-// --- MOVE 1 ---
-// Format: | Opcode (6) | Dest(5) | Src(5) | 
-parameter MOV = 6'b101100; // Reg[Dest(4)] = Reg[Src(4)]; we only use 4 bits for dest and src
-
 // --- MOVE 2 ---
+// Format: | Opcode (6) | Dest(5) | Src(5) | 
+parameter MOV = 6'b101101; // Reg[Dest] = Reg[Src];
+
+// --- MOVE 1 ---
 // Format: | Opcode (6) | RA(4) | Imm(6) | 
-parameter MOV = 6'b101101; // Reg[Ra] = Imm[4:0]; we only use 5 bits of Imm
+parameter MOV = 6'b101100; // Reg[Ra] = Imm[5:0];
 
 // for MOVE 1 and MOVE 2, OP and Ra for registers are the following:
 // Acc - 0000, X - 0001, Y - 0010, ... (Z, T, ... for later, now just X, and Y )

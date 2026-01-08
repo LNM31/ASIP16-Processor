@@ -121,7 +121,7 @@ module CPU(
       1'b0 | c[30] | c[31] | c[34] | c[35] | c[39] | c[40] | c[43] | c[44] | c[47] | c[48] | c[54], // ~c[26] | ~c[37]
       1'b0 | c[29] | c[31] | c[33] | c[35] | c[38] | c[40] | c[42] | c[44] | c[46] | c[48] | c[52]// ~c[26] | ~c[37]
     }),  // default adunare
-    .inbus((~enable_mem & mux2s_out) | (enable_mem & mem_in)), // ~c[...] & mux2s_out || c[...] & mem[ar_out]   // input  [15:0]
+    .inbus((~{16{enable_mem}} & mux2s_out) | ({16{enable_mem}} & mem_in)), // ~c[...] & mux2s_out || c[...] & mem[ar_out]   // input  [15:0]
     .outbus(outbus_alu),      // output [15:0]
     .finish(finish_alu),      // output 1 bit
     .negative(negative_alu),  // output 1 bit
@@ -196,7 +196,7 @@ module CPU(
     .d7({16'b1}),  // nop
     .sel({
       1'b0 | c[0],                         // s[2]
-      1'b0 | c[3] | c[9] | c[11] | c[14],  // s[1]
+      1'b0 | c[3] | c[9] | c[11] | c[14] | c[57],  // s[1]
       1'b0 | c[9] | c[14] | c[17] | c[19]  // s[0]
     }),     // sel urile cresc proportional cu numarul de instructiuni
     .o(mux_ar_out)
@@ -205,7 +205,7 @@ module CPU(
   AR ar(
     .clk(clk),
     .rst_b(rst_b),
-    .en(c[0] | c[1] | c[3] | c[9] | c[11] | c[14] | c[17] | c[19]),    // input 1 bit
+    .en(c[0] | c[1] | c[3] | c[9] | c[11] | c[14] | c[17] | c[19] | c[57]),    // input 1 bit
     .in(mux_ar_out),                    // input [15:0]
     .out(ar_out)              // output[15:0]
   );

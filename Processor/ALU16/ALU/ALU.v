@@ -37,7 +37,7 @@ module ALU (
             {17{c[15]}} & ({1'b0, q_out} & {1'b0, m_out}) |
             {17{c[16]}} & ({1'b0, q_out} | {1'b0, m_out}) |
             {17{c[17]}} & ({1'b0, q_out} ^ {1'b0, m_out}) |
-            {17{c[18]}} & ({1'b0, ~q_out})
+            {17{c[18]}} & ({1'b0, ~m_out})
         ),
         .out(a_out)
     );
@@ -82,15 +82,24 @@ module ALU (
 
     counter COUNT(
         .clk(clk),
-        .rst_b(rst_b),
+        .rst_b(c[0] ? 1'b0 : rst_b),
         .c_up(c[7]),
         .out(cnt_out)
     );
 
+    reg [3:0] selector;
+
+    always @(posedge clk or negedge rst_b) begin
+        if (!rst_b)
+            selector <= 4'd0;
+        else if (start)  // Când rezultatul e pe bus
+            selector <= s;
+    end
+
     Control_Unit CU(
         .clk(clk),
         .rst_b(rst_b),
-        .s(s),
+        .s(selector),
         .start(start),
         .q0(q_out[0]),
         .q_1(q_1out),
