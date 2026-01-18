@@ -1036,4 +1036,24 @@ module Control_Unit_CPU(
   assign c[121]  = qout[172];
   assign c[122]  = qout[173];
 
+  // DEBUG: Decodifica starea curenta in zecimal (0-173)
+  reg [7:0] state_num;
+  integer i;
+  always @(*) begin
+    state_num = 8'd255; // default: nicio stare activa
+    for (i = 0; i < 174; i = i + 1) begin
+      if (qout[i]) state_num = i[7:0];
+    end
+  end
+
+  // DEBUG: Decodifica primul semnal activ in zecimal (0-122)
+  reg [7:0] signal_num;
+  integer j;
+  always @(*) begin
+    signal_num = 8'd255; // default: niciun semnal activ
+    for (j = 0; j < 123; j = j + 1) begin
+      if (c[j]) signal_num = j[7:0];
+    end
+  end
+
 endmodule

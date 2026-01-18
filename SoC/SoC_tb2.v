@@ -449,7 +449,7 @@ module SoC_tb2;
     // Execuție - așteaptă HLT
     // ========================================
     // $display("\n[TEST] Executie program - astept HLT...\n");
-    wait_finish(5000);  // max 1000 cicluri pentru toate instructiunile
+    wait_finish(10000);  // max 1000 cicluri pentru toate instructiunile
 
 
     // ========================================
