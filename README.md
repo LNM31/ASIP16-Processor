@@ -250,12 +250,6 @@ Every instruction follows this **fetch → decode → execute** pattern, with th
 
 ---
 
-## Simulation Output
-
-<img width="635" height="1100" alt="Demo1" src="https://github.com/user-attachments/assets/e12bfcb0-c3f5-4755-8804-0e56720b1883" />
-
----
-
 ## Prerequisites
 
 ### Required
