@@ -252,13 +252,7 @@ Every instruction follows this **fetch → decode → execute** pattern, with th
 
 ## Simulation Output
 
-<!-- PLACEHOLDER -->
-<!-- Add simulation screenshot: drag & drop in GitHub editor -->
-![Simulation Output](https://via.placeholder.com/800x450?text=Simulation+Output+Placeholder)
-
-<!-- PLACEHOLDER -->
-<!-- Add GTKWave waveform screenshot: drag & drop in GitHub editor -->
-![Waveform Analysis](https://via.placeholder.com/800x450?text=GTKWave+Waveform+Placeholder)
+<img width="635" height="1100" alt="Demo1" src="https://github.com/user-attachments/assets/e12bfcb0-c3f5-4755-8804-0e56720b1883" />
 
 ---
 
@@ -379,7 +373,7 @@ ASIP16-Processor/
 │   │
 │   ├── Control-Unit/
 │   │   ├── Control_Unit_CPU.v          # 174-state one-hot FSM (123 control signals)
-│   │   └── ffd_OneHot.v               # D flip-flop primitive for one-hot encoding
+│   │   └── ffd_OneHot.v                # D flip-flop primitive for one-hot encoding
 │   │
 │   ├── ALU16/                          # Self-contained ALU subsystem
 │   │   ├── ALU/
@@ -390,12 +384,12 @@ ASIP16-Processor/
 │   │   │   ├── A.v                     # Accumulator register (17-bit)
 │   │   │   ├── Q.v                     # Secondary operand (shift/rotate capable)
 │   │   │   ├── M.v                     # Multiplicand/divisor register
-│   │   │   └── counter.v              # Iteration counter for multi-cycle ops
+│   │   │   └── counter.v               # Iteration counter for multi-cycle ops
 │   │   └── Combinational/
 │   │       ├── RCA/                    # Ripple-carry adder + full adder cell
 │   │       ├── muxes/                  # 2:1, 4:1, 8:1, 16:1 multiplexers
 │   │       ├── comparator/             # 4-bit magnitude comparator
-│   │       └── encoder/               # Priority encoder
+│   │       └── encoder/                # Priority encoder
 │   │
 │   ├── Registers/
 │   │   ├── PC.v                        # Program Counter (with RCA increment)
