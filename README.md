@@ -30,6 +30,9 @@ This isn't a textbook exercise — it's a working computer that can multiply mat
 The processor follows a classical **accumulator-based architecture** inspired by the IAS machine, with a centralized control strategy and a unified memory space for both instructions and data.
 
 ![cpu-architecture](https://github.com/user-attachments/assets/437fbb45-74b1-484b-ac4d-4ee762d8110a)<div align="center">
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/437fbb45-74b1-484b-ac4d-4ee762d8110a" alt="CPU Architecture"/>
+</div>
 
 ```mermaid
 graph TB
