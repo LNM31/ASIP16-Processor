@@ -11,6 +11,10 @@
 
 </div>
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/437fbb45-74b1-484b-ac4d-4ee762d8110a" alt="CPU Architecture"/>
+</div>
+
 ---
 
 ## Overview
@@ -29,62 +33,46 @@ This isn't a textbook exercise — it's a working computer that can multiply mat
 
 The processor follows a classical **accumulator-based architecture** inspired by the IAS machine, with a centralized control strategy and a unified memory space for both instructions and data.
 
-![cpu-architecture](https://github.com/user-attachments/assets/437fbb45-74b1-484b-ac4d-4ee762d8110a)<div align="center">
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/437fbb45-74b1-484b-ac4d-4ee762d8110a" alt="CPU Architecture"/>
-</div>
-
 ```mermaid
 graph TB
-    subgraph SoC["System-on-Chip"]
+    subgraph SoC[System-on-Chip]
         direction TB
 
-        subgraph CPU["CPU Core"]
+        subgraph CPU[CPU Core]
             direction LR
 
-            subgraph CU["Control Unit<br/><i>174 states · 123 signals</i><br/>One-Hot FSM"]
+            subgraph CU[Control Unit - 174 states, 123 signals - One-Hot FSM]
             end
 
-            subgraph DP["Datapath"]
+            subgraph DP[Datapath]
                 direction TB
-                PC["PC"] --- IR["IR"]
-                AC["AC"] --- FLAGS["FLAGS<br/>(N,Z,C,V)"]
-                XY["X · Y"] --- R2R9["R2–R9<br/><i>(ASIP)</i>"]
-                SP["SP"] --- AR["AR"]
-                SEU["Sign Extend<br/>Unit"]
+                PC[PC] --- IR[IR]
+                AC[AC] --- FLAGS[FLAGS - N,Z,C,V]
+                XY[X / Y] --- R2R9[R2 to R9 - ASIP]
+                SP[SP] --- AR[AR]
+                SEU[Sign Extend Unit]
             end
 
-            subgraph ALU["ALU Subsystem"]
+            subgraph ALU[ALU Subsystem]
                 direction TB
-                ALU_CU["ALU Control Unit<br/><i>FSM · 19 signals</i>"]
-                ALU_DP["A · Q · M Registers<br/>RCA Adder · Counter"]
+                ALU_CU[ALU Control Unit - FSM, 19 signals]
+                ALU_DP[A, Q, M Registers + RCA Adder + Counter]
                 ALU_CU --- ALU_DP
             end
 
-            CU -->|"control<br/>vector [122:0]"| DP
-            CU -->|start/ack| ALU
-            DP <-->|operands/results| ALU
+            CU -->|control vector| DP
+            CU -->|start / ack| ALU
+            DP ---|operands / results| ALU
         end
 
-        MEM["Memory<br/>512 × 16-bit<br/><i>Unified: Instructions + Data + Stack</i>"]
-        INP["Input Unit<br/><i>Handshake Protocol</i>"]
-        OUT["Output Unit<br/><i>Handshake Protocol</i>"]
+        MEM[Memory - 512 x 16-bit - Unified]
+        INP[Input Unit - Handshake]
+        OUT[Output Unit - Handshake]
 
-        CPU <-->|"Data Bus [15:0]<br/>Address Bus [15:0]<br/>Control: RD/WR"| MEM
-        CPU <-->|"inp_req / inp_ack<br/>inp_data [15:0]"| INP
-        CPU <-->|"out_req / out_ack<br/>out_data [15:0]"| OUT
+        CPU ---|Data Bus + Address Bus + RD/WR| MEM
+        CPU ---|inp_req / inp_ack| INP
+        CPU ---|out_req / out_ack| OUT
     end
-
-    style SoC fill:#1a1a2e,stroke:#e94560,stroke-width:2px,color:#fff
-    style CPU fill:#16213e,stroke:#0f3460,stroke-width:2px,color:#fff
-    style CU fill:#533483,stroke:#e94560,color:#fff
-    style DP fill:#0f3460,stroke:#e94560,color:#fff
-    style ALU fill:#1a1a2e,stroke:#e94560,stroke-width:2px,color:#fff
-    style ALU_CU fill:#533483,stroke:#e94560,color:#fff
-    style ALU_DP fill:#0f3460,stroke:#e94560,color:#fff
-    style MEM fill:#0f3460,stroke:#e94560,color:#fff
-    style INP fill:#0f3460,stroke:#e94560,color:#fff
-    style OUT fill:#0f3460,stroke:#e94560,color:#fff
 ```
 
 ### Key Architectural Properties
@@ -225,28 +213,28 @@ sequenceDiagram
     participant ALU as ALU
     participant AC as Accumulator
 
-    Note over CU: S0 → S1: Initialize
+    Note over CU: S0 - S1: Initialize
     CU->>PC: Load start address
-    CU->>PC: AR ← PC
+    CU->>PC: AR = PC
 
     Note over CU: S2: Fetch
     CU->>MEM: Read Mem[AR]
-    MEM-->>IR: Instruction word → IR
-    CU->>PC: PC ← PC + 1
+    MEM-->>IR: Instruction word to IR
+    CU->>PC: PC = PC + 1
 
     Note over CU: S3: Decode
     CU->>CU: Decode opcode from IR[15:10]
-    Note over CU: opcode = 010100 → ADD_R
+    Note over CU: opcode = 010100 = ADD_R
 
     Note over CU: S46: Execute
-    CU->>ALU: Start ALU (selector = ADD)
-    ALU->>ALU: A ← 0, Q ← AC, M ← X
-    ALU->>ALU: A ← A + M (via RCA)
-    ALU-->>AC: Result → AC
-    ALU-->>CU: FLAGS updated (N, Z, C, V)
+    CU->>ALU: Start ALU, selector = ADD
+    ALU->>ALU: A = 0, Q = AC, M = X
+    ALU->>ALU: A = A + M via RCA
+    ALU-->>AC: Result to AC
+    ALU-->>CU: FLAGS updated N, Z, C, V
     ALU-->>CU: finish signal
 
-    Note over CU: Return to S2 → next fetch
+    Note over CU: Return to S2, next fetch
 ```
 
 Every instruction follows this **fetch → decode → execute** pattern, with the Control Unit advancing through its one-hot FSM states and asserting the appropriate control signals at each step.
