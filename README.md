@@ -1,3 +1,5 @@
+<div align="center">
+
 # ASIP16-Processor
 
 **A 16-bit general-purpose processor with tensor acceleration, built from the ground up in structural Verilog.**
@@ -33,47 +35,7 @@ This isn't a textbook exercise — it's a working computer that can multiply mat
 
 The processor follows a classical **accumulator-based architecture** inspired by the IAS machine, with a centralized control strategy and a unified memory space for both instructions and data.
 
-```mermaid
-graph TB
-    subgraph SoC[System-on-Chip]
-        direction TB
-
-        subgraph CPU[CPU Core]
-            direction LR
-
-            subgraph CU[Control Unit - 174 states, 123 signals - One-Hot FSM]
-            end
-
-            subgraph DP[Datapath]
-                direction TB
-                PC[PC] --- IR[IR]
-                AC[AC] --- FLAGS[FLAGS - N,Z,C,V]
-                XY[X / Y] --- R2R9[R2 to R9 - ASIP]
-                SP[SP] --- AR[AR]
-                SEU[Sign Extend Unit]
-            end
-
-            subgraph ALU[ALU Subsystem]
-                direction TB
-                ALU_CU[ALU Control Unit - FSM, 19 signals]
-                ALU_DP[A, Q, M Registers + RCA Adder + Counter]
-                ALU_CU --- ALU_DP
-            end
-
-            CU -->|control vector| DP
-            CU -->|start / ack| ALU
-            DP ---|operands / results| ALU
-        end
-
-        MEM[Memory - 512 x 16-bit - Unified]
-        INP[Input Unit - Handshake]
-        OUT[Output Unit - Handshake]
-
-        CPU ---|Data Bus + Address Bus + RD/WR| MEM
-        CPU ---|inp_req / inp_ack| INP
-        CPU ---|out_req / out_ack| OUT
-    end
-```
+![Architecture Diagram](https://via.placeholder.com/900x500?text=Processor+Architecture+Diagram+Placeholder)
 
 ### Key Architectural Properties
 
@@ -204,38 +166,7 @@ All tensor operations (`ADDM`, `SUBM`, `ELMULM`, `MULM`) support configurable ma
 
 To illustrate how the processor works at the signal level, here's what happens when `ADD X` executes — the accumulator adds the value in register X:
 
-```mermaid
-sequenceDiagram
-    participant CU as Control Unit
-    participant PC as Program Counter
-    participant MEM as Memory
-    participant IR as Instruction Register
-    participant ALU as ALU
-    participant AC as Accumulator
-
-    Note over CU: S0 - S1: Initialize
-    CU->>PC: Load start address
-    CU->>PC: AR = PC
-
-    Note over CU: S2: Fetch
-    CU->>MEM: Read Mem[AR]
-    MEM-->>IR: Instruction word to IR
-    CU->>PC: PC = PC + 1
-
-    Note over CU: S3: Decode
-    CU->>CU: Decode opcode from IR[15:10]
-    Note over CU: opcode = 010100 = ADD_R
-
-    Note over CU: S46: Execute
-    CU->>ALU: Start ALU, selector = ADD
-    ALU->>ALU: A = 0, Q = AC, M = X
-    ALU->>ALU: A = A + M via RCA
-    ALU-->>AC: Result to AC
-    ALU-->>CU: FLAGS updated N, Z, C, V
-    ALU-->>CU: finish signal
-
-    Note over CU: Return to S2, next fetch
-```
+![Instruction Execution Flow](https://via.placeholder.com/900x500?text=Instruction+Execution+Flow+Placeholder)
 
 Every instruction follows this **fetch → decode → execute** pattern, with the Control Unit advancing through its one-hot FSM states and asserting the appropriate control signals at each step.
 
