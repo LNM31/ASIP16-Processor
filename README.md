@@ -1,5 +1,3 @@
-![cpu-architecture](https://github.com/user-attachments/assets/437fbb45-74b1-484b-ac4d-4ee762d8110a)<div align="center">
-
 # ASIP16-Processor
 
 **A 16-bit general-purpose processor with tensor acceleration, built from the ground up in structural Verilog.**
@@ -257,6 +255,7 @@ The processor follows a classical **accumulator-based architecture** inspired by
 </svg>
 -architecture.svg…]()
 
+![cpu-architecture](https://github.com/user-attachments/assets/437fbb45-74b1-484b-ac4d-4ee762d8110a)<div align="center">
 
 ```mermaid
 graph TB
